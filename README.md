@@ -45,12 +45,6 @@ CLERK_SECRET_KEY="sk_test_your-secret-key"
 
 # AI Provider - Get from OpenAI (https://platform.openai.com/api-keys)
 OPENAI_API_KEY="sk-your-openai-api-key"
-
-# Optional Clerk URLs (defaults work fine)
-NEXT_PUBLIC_CLERK_SIGN_IN_URL="/sign-in"
-NEXT_PUBLIC_CLERK_SIGN_UP_URL="/sign-up"
-NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL="/dashboard"
-NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL="/dashboard"
 ```
 
 ### 3. Database Setup
