@@ -41,8 +41,11 @@ interface FormSchema {
 
 export default function CreateFormPage() {
   const [formSchema, setFormSchema] = useState<FormSchema | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isDraftLoading, setIsDraftLoading] = useState(false);
+  const [isPublishLoading, setIsPublishLoading] = useState(false);
   
-  const { messages, sendMessage, status } = useChat({
+  const { messages, sendMessage, status, setMessages } = useChat({
     transport: new DefaultChatTransport({
       api: "/api/chat/form-builder",
     }),
@@ -69,6 +72,43 @@ export default function CreateFormPage() {
     if (!hasText) return;
 
     sendMessage({ text: message.text! });
+  };
+
+  const handleSaveForm = async (isPublished: boolean) => {
+    if (!formSchema) return;
+
+    const isDraftLoading = !isPublished;
+    const isPublishLoading = isPublished;
+    setIsDraftLoading(isDraftLoading);
+    setIsPublishLoading(isPublishLoading);
+    setIsLoading(true);
+    try {
+      const response = await fetch('/api/forms', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formSchema.name,
+          description: formSchema.description,
+          schema: formSchema,
+          isPublished,
+        }),
+      });
+
+      if (response.ok) {
+        const form = await response.json();
+        // Clear the chat and form after successful save
+        setMessages([]);
+        setFormSchema(null);
+        // Redirect to form management page
+        window.location.href = `/dashboard/forms/${form.id}`;
+      } else {
+        console.error('Failed to save form');
+      }
+    } catch (error) {
+      console.error('Error saving form:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const examplePrompts = [
@@ -198,8 +238,21 @@ export default function CreateFormPage() {
 
           {formSchema && (
             <div className="mt-4 flex space-x-2">
-              <Button className="flex-1">Save as Draft</Button>
-              <Button variant="outline" className="flex-1">Publish Form</Button>
+              <Button 
+                className="flex-1" 
+                variant="outline"
+                onClick={() => handleSaveForm(false)}
+                disabled={isDraftLoading}
+              >
+                {isLoading ? "Saving..." : "Save as Draft"}
+              </Button>
+              <Button 
+                className="flex-1"
+                onClick={() => handleSaveForm(true)}
+                disabled={isPublishLoading}
+              >
+                {isLoading ? "Publishing..." : "Publish Form"}
+              </Button>
             </div>
           )}
         </div>

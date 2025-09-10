@@ -49,10 +49,9 @@ export async function POST(req: Request) {
   const { messages }: { messages: UIMessage[] } = await req.json();
 
   const result = streamText({
-    model: openai('gpt-4-turbo'),
+    model: openai('o3-mini'),
     system: SYSTEM_PROMPT,
     messages: convertToModelMessages(messages),
-    maxTokens: 1000,
     temperature: 0.7,
   });
 

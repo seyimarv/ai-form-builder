@@ -212,7 +212,7 @@ export function FormPreview({ schema }: FormPreviewProps) {
       </CardHeader>
       <CardContent>
         <form className="space-y-6">
-          {schema.fields.map(renderField)}
+          {schema.fields.map((field) => renderField(field))}
           <div className="pt-4 border-t">
             <Button type="submit" className="w-full">
               Submit Form
