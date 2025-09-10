@@ -28,7 +28,6 @@ interface FormPreviewProps {
 export function FormPreview({ schema }: FormPreviewProps) {
   const renderField = (field: FormField) => {
     const baseProps = {
-      key: field.id,
       placeholder: field.placeholder,
       required: field.required,
     };
@@ -39,7 +38,7 @@ export function FormPreview({ schema }: FormPreviewProps) {
       case "tel":
       case "url":
         return (
-          <div className="space-y-2">
+          <div key={field.id} className="space-y-2">
             <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
               {field.label}
               {field.required && <span className="text-red-500 ml-1">*</span>}
@@ -50,7 +49,7 @@ export function FormPreview({ schema }: FormPreviewProps) {
 
       case "textarea":
         return (
-          <div className="space-y-2">
+          <div key={field.id} className="space-y-2">
             <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
               {field.label}
               {field.required && <span className="text-red-500 ml-1">*</span>}
@@ -61,7 +60,7 @@ export function FormPreview({ schema }: FormPreviewProps) {
 
       case "select":
         return (
-          <div className="space-y-2">
+          <div key={field.id} className="space-y-2">
             <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
               {field.label}
               {field.required && <span className="text-red-500 ml-1">*</span>}
@@ -82,7 +81,7 @@ export function FormPreview({ schema }: FormPreviewProps) {
 
       case "radio":
         return (
-          <div className="space-y-2">
+          <div key={field.id} className="space-y-2">
             <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
               {field.label}
               {field.required && <span className="text-red-500 ml-1">*</span>}
@@ -112,7 +111,7 @@ export function FormPreview({ schema }: FormPreviewProps) {
 
       case "checkbox":
         return (
-          <div className="space-y-2">
+          <div key={field.id} className="space-y-2">
             <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
               {field.label}
               {field.required && <span className="text-red-500 ml-1">*</span>}
@@ -141,7 +140,7 @@ export function FormPreview({ schema }: FormPreviewProps) {
 
       case "rating":
         return (
-          <div className="space-y-2">
+          <div key={field.id} className="space-y-2">
             <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
               {field.label}
               {field.required && <span className="text-red-500 ml-1">*</span>}
@@ -162,7 +161,7 @@ export function FormPreview({ schema }: FormPreviewProps) {
 
       case "file":
         return (
-          <div className="space-y-2">
+          <div key={field.id} className="space-y-2">
             <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
               {field.label}
               {field.required && <span className="text-red-500 ml-1">*</span>}
@@ -186,7 +185,7 @@ export function FormPreview({ schema }: FormPreviewProps) {
 
       default:
         return (
-          <div className="space-y-2">
+          <div key={field.id} className="space-y-2">
             <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
               {field.label}
               {field.required && <span className="text-red-500 ml-1">*</span>}
