@@ -244,14 +244,14 @@ export default function CreateFormPage() {
                 onClick={() => handleSaveForm(false)}
                 disabled={isDraftLoading}
               >
-                {isLoading ? "Saving..." : "Save as Draft"}
+                {isDraftLoading ? "Saving..." : "Save as Draft"}
               </Button>
               <Button 
                 className="flex-1"
                 onClick={() => handleSaveForm(true)}
                 disabled={isPublishLoading}
               >
-                {isLoading ? "Publishing..." : "Publish Form"}
+                {isPublishLoading ? "Publishing..." : "Publish Form"}
               </Button>
             </div>
           )}
